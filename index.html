@@ -149,10 +149,10 @@
       function showFeedback(type) {
         if (type === "correct") {
           feedbackOverlay.textContent = "¡Muy bien!";
-          feedbackOverlay.style.backgroundImage = "url('https://i.imgur.com/AcBY5mH.jpg')";
+          feedbackOverlay.style.backgroundImage = "url('https://i.imgur.com/NA4XaZq.jpeg')";
         } else if (type === "incorrect") {
           feedbackOverlay.textContent = "Intentalo otra vez";
-          feedbackOverlay.style.backgroundImage = "url('https://i.imgur.com/04kNUoV.jpg')";
+          feedbackOverlay.style.backgroundImage = "url('https://i.imgur.com/TbTrrhw.jpeg')";
         }
         feedbackOverlay.style.display = "flex";
         setTimeout(() => {
@@ -164,7 +164,7 @@
       createFlagGrid();
       startNewGame();
       
-      // Asignar evento al botón "Nueva Partida"
+      // Asignar el evento para el botón "Nueva Partida"
       newGameBtn.addEventListener("click", startNewGame);
     });
   </script>
