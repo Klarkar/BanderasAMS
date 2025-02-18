@@ -8,7 +8,19 @@
   <!-- Cargar Tailwind CSS desde un CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Puedes agregar estilos adicionales aquí si lo deseas */
+    /* Estilos para el overlay de feedback */
+    #feedbackOverlay {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* En móviles, ajustamos el tamaño del fondo y la fuente */
+    @media (max-width: 640px) {
+      #feedbackOverlay {
+        background-size: contain;
+        font-size: 1.75rem; /* Tamaño de fuente ligeramente menor en móviles */
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
@@ -23,9 +35,7 @@
   <!-- Contenedor principal del juego -->
   <main id="game-container" class="w-full max-w-4xl">
     <div class="flex flex-col md:flex-row items-center justify-between mb-6">
-      <div id="prompt" class="text-2xl font-semibold">
-        ¿Cuál es la bandera de ...?
-      </div>
+      <div id="prompt" class="text-2xl font-semibold">¿Cuál es la bandera de ...?</div>
       <button id="new-game-btn" class="bg-blue-500 text-white px-4 py-2 rounded mt-4 md:mt-0">
         Nueva Partida
       </button>
@@ -39,10 +49,9 @@
     <p>Subido a GitHub Pages</p>
   </footer>
 
-  <!-- Pantalla de feedback responsive -->
-  <div id="feedbackOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat text-white font-bold 
-    text-2xl sm:text-3xl md:text-4xl">
-    <!-- El contenido (mensaje) se asigna dinámicamente -->
+  <!-- Overlay de feedback (mensaje y fondo) -->
+  <div id="feedbackOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat text-white font-bold text-3xl sm:text-4xl md:text-5xl">
+    <!-- El mensaje se asigna dinámicamente -->
   </div>
 
   <!-- Lógica de la aplicación -->
@@ -73,7 +82,7 @@
       const newGameBtn = document.getElementById("new-game-btn");
       const feedbackOverlay = document.getElementById("feedbackOverlay");
       
-      // Función para crear la cuadrícula de banderas (se mantiene el mismo orden)
+      // Crea la cuadrícula de banderas (en orden fijo)
       function createFlagGrid() {
         flagGrid.innerHTML = "";
         countries.forEach(country => {
@@ -94,7 +103,7 @@
         });
       }
       
-      // Algoritmo de Fisher-Yates para mezclar un array
+      // Algoritmo de Fisher-Yates para mezclar el array
       function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -111,7 +120,7 @@
         feedbackOverlay.classList.add("hidden");
       }
       
-      // Actualiza el mensaje para indicar el país actual a identificar
+      // Actualiza el mensaje del país actual a identificar
       function updatePrompt() {
         if (currentIndex < shuffledCountries.length) {
           promptEl.textContent = `¿Cuál es la bandera de ${shuffledCountries[currentIndex].name}?`;
@@ -132,7 +141,7 @@
         }
       }
       
-      // Muestra la pantalla de feedback según el tipo ("correct" o "incorrect")
+      // Muestra el overlay de feedback según el tipo ("correct" o "incorrect")
       function showFeedback(type) {
         if (type === "correct") {
           feedbackOverlay.textContent = "¡Muy bien!";
@@ -151,7 +160,7 @@
       createFlagGrid();
       startNewGame();
       
-      // Asignar el evento para el botón "Nueva Partida"
+      // Asignar evento al botón "Nueva Partida"
       newGameBtn.addEventListener("click", startNewGame);
     });
   </script>
